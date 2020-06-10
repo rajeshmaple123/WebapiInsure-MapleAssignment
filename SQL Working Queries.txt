@@ -1,0 +1,86 @@
+use insurer
+
+
+CREATE TABLE CoveragePlan ( Coverageplan varchar (20) , Eligibilitydatefrom date , Eligibilitydateto date , Eligibilitycountry varchar(20) )
+
+
+Insert into CoveragePlan (Coverageplan,Eligibilitydatefrom,Eligibilitydateto, Eligibilitycountry) Values('Gold' ,'1/1/2009','1/1/2021', 'USA')
+
+Insert into CoveragePlan (Coverageplan,Eligibilitydatefrom,Eligibilitydateto, Eligibilitycountry) Values('Platinum' ,'1/1/2005','1/1/2023', 'CAN')
+
+Insert into CoveragePlan (Coverageplan,Eligibilitydatefrom,Eligibilitydateto, Eligibilitycountry) Values('Silver' ,'1/1/2001','1/1/2026', 'IND')
+
+
+select * from coverageplan
+
+
+
+CREATE TABLE RateChart  ( Coverageplan varchar (20) , customergender varchar (10) , customerage nvarchar(20) , netprice int )
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Gold' ,'M','<=40 ', 1000)
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Gold' ,'M','>40 ', 2000)
+
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Gold' ,'F','<=40 ', 1200)
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Gold' ,'F','>40 ', 2500)
+
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Silver' ,'M','<=40 ', 1500)
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Silver' ,'M','>40 ', 2600)
+
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Silver' ,'F','<=40 ', 1900)
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Silver' ,'F','>40 ', 2800)
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Platinum' ,'M','<=40 ', 1900) 
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Platinum' ,'M','>40 ', 2900)
+
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Platinum' ,'F','<=40 ', 2100)
+
+
+Insert into RateChart (Coverageplan,customergender,customerage, netprice) Values('Platinum' ,'F','>40 ', 3200)
+
+SELECT * FROM RateChart
+
+
+
+
+CREATE TABLE Contracts  ( CustomerName varchar (20) , CustomerAddress varchar (20) ,  CustomerGender varchar (20) ,
+  CustomerCountry varchar (20),CustomerDateofbirth DATE, SaleDate DATE,CoveragePlan VARCHAR(20) , NetPrice INT)
+
+ 
+
+  
+Insert into Contracts (CustomerName,CustomerAddress,CustomerGender, CustomerCountry,CustomerDateofbirth,SaleDate,CoveragePlan,NetPrice)
+ Values('John' ,'Dixon','M', 'USA','1/1/1975', '1/1/2012', 'Gold' ,2000.00 )
+
+Insert into Contracts (CustomerName,CustomerAddress,CustomerGender, CustomerCountry,CustomerDateofbirth,SaleDate,CoveragePlan,NetPrice)
+ Values('Jolie' ,'Grande','F', 'CAN','1/1/1980', '1/1/2007', 'Platinum' ,2100.00 )
+
+ Insert into Contracts (CustomerName,CustomerAddress,CustomerGender, CustomerCountry,CustomerDateofbirth,SaleDate,CoveragePlan,NetPrice)
+ Values('Helen ' ,'Young','F', 'CHI','1/1/1960', '5/5/2005', 'Silver' ,2800.00)
+
+ 
+ Insert into Contracts (CustomerName,CustomerAddress,CustomerGender, CustomerCountry,CustomerDateofbirth,SaleDate,CoveragePlan,NetPrice)
+ Values('test' ,'Young','F', 'CHI','1/1/1960', '5/5/2005', 'Silver' ,2800.00)
+
+	 use insurer
+	select * from Contracts
+
+

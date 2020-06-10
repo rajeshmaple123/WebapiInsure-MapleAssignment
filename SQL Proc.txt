@@ -1,0 +1,57 @@
+use Insurer
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+
+Create procedure [Insert_Contract_Post_Method_API] 
+(
+@Name varchar(100)=null,
+@Address varchar(35)=null,
+@dateofbirth date,
+@gender varchar=null,
+@saledate date,
+@country  varchar(20)=null
+)
+as 
+begin
+
+DECLARE 
+@CoveragePlan varchar(35)=null,
+@NetPrice  int=null
+
+  select @CoveragePlan=CoveragePlan from CoveragePlan where Eligibilitycountry = @COUNTRY and  @saledate  between Eligibilitydatefrom and Eligibilitydateto
+
+ 
+    SELECT top 1 @netprice=NetPrice
+              FROM  ratechart
+              WHERE  customergender = @gender and coverageplan=@CoveragePlan 
+
+insert into Contracts
+(
+customername,
+CustomerAddress,
+CustomerGender,
+CustomerCountry,
+CustomerDateofbirth,
+saledate,
+CoveragePlan,
+netprice
+ 
+)
+values
+(
+@Name,
+@Address,
+@Gender,
+@country,
+@dateofbirth,
+@saledate,
+@CoveragePlan,
+@netprice
+ 
+)
+
+end
+
+
