@@ -1,0 +1,52 @@
+use Insurer
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+
+Create procedure [Update_Contract_PUT_Method_API] 
+(
+@Name varchar(100)=null,
+@Address varchar(35)=null,
+@dateofbirth date,
+@gender varchar=null,
+@saledate date,
+@country  varchar(20)=null
+)
+as 
+begin
+
+DECLARE 
+@tempcp varchar(35)=null,
+@tempnet  int=null
+
+declare @newcustomerage int
+declare @tempage nvarchar
+
+select @tempcp=CoveragePlan from CoveragePlan where Eligibilitycountry = @country and  @saledate  between Eligibilitydatefrom and Eligibilitydateto
+SELECT @newcustomerage=CONVERT(int,ROUND(DATEDIFF(hour,@dateofbirth,GETDATE())/8766.0,0))
+ IF  @newcustomerage > 40
+    BEGIN
+		set @tempage='>'        
+    END
+    ELSE
+    BEGIN
+		set @tempage='<'
+    END
+select @tempnet=netprice FROM ratechart where customergender =@gender and CoveragePlan = @tempcp  and  UNICODE (customerage) like UNICODE(@tempage)
+
+
+update Contracts
+set 
+CustomerName=@Name,
+CustomerAddress=@Address,
+customerdateofbirth=@dateofbirth,
+CustomerGender=@gender,
+CustomerCountry=@country,
+SaleDate=@saledate,
+coverageplan =@tempcp,
+NetPrice=@tempnet WHERE CustomerName=@name
+end
+
+
+
