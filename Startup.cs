@@ -14,6 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using webapiInsurer.Models;
 using webapiInsurer.Repositories;
+using Microsoft.AspNetCore.Server.IISIntegration;
+
+
 
 namespace webapiInsurer
 {
@@ -30,14 +33,13 @@ namespace webapiInsurer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<webapiInsurer.Models.ApplicationContext>(opts =>
-     opts.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"],x => x.MigrationsAssembly("WebApplication")));
+            services.AddDbContext<webapiInsurer.Models.ApplicationContext>(opts =>opts.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"],x => x.MigrationsAssembly("WebApplication")));
             services.AddScoped(typeof(IDataAccess<Contracts, string>), typeof(DataAccessRepository));
-          //  services.AddSingleton(typeof(IDataAccess<Contracts, string>), typeof(DataAccessRepository));
+            services.AddScoped(typeof(IDataAccess<Insert_Contract_Post_Method_API, string>), typeof(DataAccessRepository));
+            services.AddScoped(typeof(IDataAccess<Update_Contract_PUT_Method_API, string>), typeof(DataAccessRepository));
             services.AddMvc();
-         
+            services.AddAuthentication(Microsoft.AspNetCore.Server.IISIntegration.IISDefaults.AuthenticationScheme);
 
-           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
