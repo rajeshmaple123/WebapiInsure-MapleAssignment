@@ -13,13 +13,11 @@ namespace webapiInsurer.Models
         {
         }
         public DbSet<Contracts> Contracts { get; set; }
-
-     
-
-
+        public  DbSet<Insert_Contract_Post_Method_API> Inscon { get; set; }
+        public DbSet<Update_Contract_PUT_Method_API> upcon { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-            }
+        {
+        }
         }
     
 }
